@@ -4,8 +4,7 @@
 
 ```
 docker create <nombre o id de la imagen>:<version o tag>
-docker create --name3 <nombr> <nombre o id de la imagen>:<version o tag>
-
+docker create --name <nombre contenedor> <nombre o id de la imagen>:<version o tag>
 ```
 
 ### Listar contenedores ejecutándose
@@ -57,6 +56,7 @@ docker run -d --name server-nginx nginx:alpine
 ```
 docker run -d --name server-nginx -p 3000:80 nginx:alpine
 docker run -d --name server-nginx-2 -p 3001:80 nginx:alpine
+docker run -dp 3002:80 --name server-nginx-3  nginx:alpine
 ```
 
 ### Inspeccionar un contenedor

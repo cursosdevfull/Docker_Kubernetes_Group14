@@ -1,0 +1,3 @@
+MYSQL_USER=alumno
+MYSQL_PASSWORD=alumno
+MYSQL_DATABASE=clase02
