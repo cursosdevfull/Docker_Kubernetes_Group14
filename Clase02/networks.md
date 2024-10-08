@@ -35,3 +35,9 @@ docker network connect <nombre o id de la red> <nombre o id del contenedor>
 ```
 docker network disconnect <nombre o id de la red> <nombre o id del contenedor>
 ```
+
+### Crear un contenedor asociado a una red host
+
+```
+docker run -d --network host prom/prometheus
+```
