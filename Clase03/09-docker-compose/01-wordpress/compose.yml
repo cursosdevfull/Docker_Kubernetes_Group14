@@ -1,0 +1,60 @@
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    restart: unless-stopped
+    ports:
+      - "3340:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: wp-db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 12345
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 2s
+      timeout: 20s
+      retries: 3
+    volumes:
+      - mysql-data:/var/lib/mysql
+    cpus: 0.5
+    mem_limit: 512m
+    networks:
+      - wp-network
+
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress
+    restart: unless-stopped
+    ports:
+      - "9500:80"
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_NAME: wp-db
+      WORDPRESS_DB_USER: user
+      WORDPRESS_DB_PASSWORD: 12345
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 2s
+      timeout: 20s
+      retries: 3
+    depends_on:
+      mysql:
+        condition: service_healthy
+    cpus: 0.5
+    mem_limit: 128m
+    volumes:
+      - wordpress-data:/var/www/html
+    networks:
+      - wp-network
+
+volumes:
+  mysql-data:
+    name: mysql-data
+  wordpress-data:
+    name: wordpress-data
+
+networks:
+  wp-network:
+    name: wp-network
+    driver: bridge
