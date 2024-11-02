@@ -11,3 +11,9 @@ docker run -d --name server-nginx --restart=on-failure nginx:alpine sh -c "cat n
 ```
 docker run -d --name server-nginx --restart=unless-stopped nginx:alpine
 ```
+
+### Reinicio siempre
+
+```
+docker run -d --name server-nginx --restart=always nginx:alpine
+```
